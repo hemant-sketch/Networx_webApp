@@ -7,7 +7,7 @@ import PDFDocument from 'pdfkit';
 import fs from 'fs';
 
 
-const convertUserDatatoPDF = (userData) => {
+const convertUserDataTOPDF = async(userData) => {
     const doc = new PDFDocument();
     const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
     const stream = fs.createWriteStream("uploads/" + outputPath);
@@ -18,8 +18,18 @@ const convertUserDatatoPDF = (userData) => {
     doc.fontSize(14).text(`Username: ${userData.userId.Name}`);
     doc.fontSize(14).text(`Email: ${userData.userId.email}`);
     doc.fontSize(14).text(`Bio: ${userData.bio}`);
-    doc.fontSize(14).text(`Current Position: ${userData.currentPosition}`);
+    doc.fontSize(14).text(`Current Position: ${userData.currentPost}`);
     doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+
+    doc.fontSize(14).text("Past Work: ")
+    userData.pastWork.forEach((work, index) => {
+        doc.fontSize(14).text(`Company Name: ${work.company}`);
+        doc.fontSize(14).text(`Position: ${work.position}`);
+        doc.fontSize(14).text(`Years: ${work.years}`);
+    })
+
+    doc.end();
+    return outputPath;
 }
 
 export const register = async(req, res) => {
@@ -33,6 +43,8 @@ export const register = async(req, res) => {
             return res.status(400).json({message: "User Already exists"});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
+        const token = crypto.randomBytes(32).toString("hex");
+
         const newUser = new User({
             name: name,
             email: email,
@@ -42,11 +54,12 @@ export const register = async(req, res) => {
         await newUser.save();
         const profile = new Profile({ userId: newUser._id});
         await profile.save();
-        res.json({message: "User Created"});
+        res.json({token});
     }catch(err){
         return res.status(500).json({message: err.message});
     }
 }
+
 export const login = async(req, res) => {
     try{
         const {email, password} = req.body;
@@ -107,7 +120,7 @@ export const updateUserProfile = async(req, res) => {
 
 export const getUserAndProfile = async(req, res) => {
     try {
-        const {token} = req.body;
+        const {token} = req.query;
         const user = await User.findOne({token : token});
         if(!user){
             return res.status(404).json({message: "User not found"});
@@ -146,12 +159,12 @@ export const getAllUserProfile = async(req,res) => {
     }
 }
 
-export const downloadProfile = async() => {
+export const downloadProfile = async(req,res) => {
     const user_id = req.query.id;
     const userProfile = await Profile.findOne({ userId: user_id })
         .populate('userId', 'name username email profilePicture');
 
-    let outputPath = await convertUserDataToPDF(userProfile);
+    let outputPath = await convertUserDataTOPDF(userProfile);
     return res.json({"message": outputPath});     
 }
 

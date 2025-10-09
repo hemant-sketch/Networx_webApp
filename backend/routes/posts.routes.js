@@ -6,20 +6,21 @@ const router = Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads')
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+    //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.originalname);
   }
 })
 
-const upload = multer({storaeg : storage});
+const upload = multer({storage : storage});
+
 router.route('/').get(activeCheck);
 
 router.route("/post").post(upload.single('media'), createPost);
 router.route("/posts").get(getAllPosts);
-router.route("/delete_post").post(deletePost);
+router.route("/delete_post").delete(deletePost);
 router.route("/comment").post(commentPost);
 router.route("/get_comments").get(get_comments_by_posts);
 router.route("/delete_comment").delete(delete_comment_by_user);

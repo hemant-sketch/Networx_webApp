@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import User from "./user.model.js";
 import Posts from "./posts.model.js";
 
-const commentSchema = mongoose.Schema({
+const CommentSchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -17,5 +17,5 @@ const commentSchema = mongoose.Schema({
     }
 });
 
-const Comment = mongoose.model("Comment", commentSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 export default Comment;
