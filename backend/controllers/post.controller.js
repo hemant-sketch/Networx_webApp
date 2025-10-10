@@ -119,6 +119,7 @@ export const delete_comment_by_user = async() => {
 }
 
 export const increment_likes = async(req,res)=> {
+    console.log("🔥 increment_likes hit!", req.body);
     const {post_id} = req.body;
     try{
         const post = await Post.findOne({_id: post_id});
@@ -129,6 +130,6 @@ export const increment_likes = async(req,res)=> {
         await post.save();
         res.status(200).json({message: "Likes Incremented"});
     } catch(err) {
-        return res.statsus(500).json({message: err.message});
+        return res.status(500).json({message: err.message});
     }
 }

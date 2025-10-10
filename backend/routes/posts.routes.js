@@ -27,8 +27,4 @@ router.route("/delete_comment").delete(delete_comment_by_user);
 router.route("/increment_post_like").post(increment_likes);
 
 
-
-
-
-
 export default router;

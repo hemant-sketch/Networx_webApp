@@ -11,9 +11,9 @@ export default function NavBarComponent() {
     const authState = useSelector((state)=> state.auth);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-    console.log("Navbar authState changed:", authState);
-    }, [authState]);
+    // useEffect(() => {
+    // console.log("Navbar authState changed:", authState);
+    // }, [authState]);
 
     return (
         <div className={styles.container}>
