@@ -2,11 +2,12 @@ import UserLayout from "@/layout/UserLayout/index.jsx";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getAllPosts,createPost,deletePost,incrementPostLike} from "../../config/redux/action/postAction/index.js";
+import {getAllPosts,createPost,deletePost,incrementPostLike,getAllComments,postComment} from "../../config/redux/action/postAction/index.js";
 import {getAboutUser,getAllUsers} from "../../config/redux/action/authAction/index.js";
 import DashboardLayout from "../../layout/DashboardLayout/index.jsx";
 import styles from "./index.module.css";
 import { BASE_URL } from "../../config/index.jsx";
+import {resetPostId} from "../../config/redux/reducers/postReducer/index.js";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -15,6 +16,8 @@ export default function Dashboard() {
 
   const authState = useSelector((state) => state.auth);
   const postState = useSelector((state) => state.postReducer);
+
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     if (authState.isTokenThere) {
@@ -143,11 +146,17 @@ export default function Dashboard() {
                               </svg>
                               <p>{post.likes}</p>
                             </div>
-                            <div className={styles.singleOptions__optionsContainer}>
+
+
+                            <div onClick={()=> {
+                              dispatch(getAllComments({post_id: post._id}));
+                            }} className={styles.singleOptions__optionsContainer}>
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
                               </svg>
                             </div>
+
+
                             <div onClick={()=>{
                               const text = encodeURIComponent(post.body);
                               const url = encodeURIComponent("my link");
@@ -167,6 +176,44 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+
+          {
+            postState.postId !== "" && 
+            <div onClick={()=>{
+              dispatch(resetPostId());
+            }}className={styles.commentsContainer}>
+              <div onClick={(e)=>{
+                e.stopPropagation();
+              }}className={styles.allCommentsContainer}>
+                {postState.comments.length === 0 && <h2>No Comments</h2>}
+                {postState.comments.length !== 0 && 
+                  <div>
+                    {postState.comments.map((postComment, index) => {
+                      return (
+                        <div class>
+                          <p>{postComment.comment}</p>
+                        </div>)
+                    })}
+
+                    <p></p>
+                  </div>
+                }
+                <div className={styles.postCommentContainer}>
+                  <input type="" value={commentText} onChange={(e)=> setCommentText(e.target.value)} placeholder="Comment" />
+                  <div onClick={async()=>{
+                    // console.log("button working")
+                    // console.log(postState.postId);
+                    // console.log(commentText);
+                    await dispatch(postComment({post_id: postState.postId, commentBody: commentText}))
+                    await dispatch(getAllComments({post_id: postState.postId}));
+                  }} className={styles.postCommentContainer__commentBtn}>
+                    <p>Comment</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
         </DashboardLayout>
       </UserLayout>
     );
