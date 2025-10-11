@@ -1,0 +1,30 @@
+.container {
+    padding: 1.3rem;
+    background: rgb(238, 235, 235);
+}
+
+.backDropContainer {
+    width: 100%;
+    height: 30vh;
+    background: url("https://i.pinimg.com/1200x/61/1d/cc/611dcc7c24f9e58200853b19e585bb16.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: none;
+    position: relative;
+    border-radius: 20px;
+}  
+
+.backDropContainer img {
+   width: 10em;
+   height: 10em;
+   object-fit: cover;
+   border-radius: 50%;
+   position: absolute;
+   bottom: -30%;
+   left: 8%;
+   text-align: center; 
+}
+
+.profileContainer__details {
+    padding-top: 6.6rem;
+}
