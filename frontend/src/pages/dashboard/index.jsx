@@ -188,10 +188,17 @@ export default function Dashboard() {
                 {postState.comments.length === 0 && <h2>No Comments</h2>}
                 {postState.comments.length !== 0 && 
                   <div>
-                    {postState.comments.map((postComment, index) => {
+                    {postState.comments.map((comment, index) => {
                       return (
-                        <div class>
-                          <p>{postComment.comment}</p>
+                        <div className={styles.singleComment} key={comment._id}>
+                          <div className={styles.singleComment__profileContainer}>
+                            <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt=""/>
+                            <div>
+                              <p style={{fontWeight: "bold", fontSize:"1.2rem"}}>{comment.userId.name}</p>
+                              <p>@{comment.userId.username}</p>
+                            </div>
+                          </div>  
+                          <p>{comment.comment}</p>
                         </div>)
                     })}
 
