@@ -9,7 +9,7 @@
     background: url("https://i.pinimg.com/1200x/61/1d/cc/611dcc7c24f9e58200853b19e585bb16.jpg");
     background-size: cover;
     background-position: center;
-    background-repeat: none;
+    background-repeat: no-repeat;
     position: relative;
     border-radius: 20px;
 }  
@@ -27,4 +27,35 @@
 
 .profileContainer__details {
     padding-top: 6.6rem;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem
+}
+
+.card__profileContainer {
+    display: flex;
+}
+
+.card__profileContainer>img {
+    width: 3.4rem;
+    height: auto;
+    height: 3.4rem;
+    object-fit: cover;
+
+}
+
+.connectionBtn {
+    padding-inline: 0.8rem;
+    padding-block: 0.3rem;
+    background: rgba(3, 93, 183, 0.905);
+    outline: none;
+    border: none;
+    color: white;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
 }

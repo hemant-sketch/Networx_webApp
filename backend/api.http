@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
     "password":"password",
-    "email":"hemant@gmail.com"
+    "email":"nikhil@gmail.com"
 }     
 
 
@@ -24,16 +24,40 @@ GET http://localhost:9090/get_user_and_profile HTTP/1.1
 Content-Type: application/json
 
 {
-    "token": "b39aa4807323576daa3657e5979d80d5ef91882d125ca66eb056bcb967a963cc"
-}        
+    "token": "3f6c823095f190ba5ddcf04ac69206b70adfdb87e5c98575afc20f2f03c504f0"
+}   
+
+###
+GET http://localhost:9090/get_user_and_profile?token=3f6c823095f190ba5ddcf04ac69206b70adfdb87e5c98575afc20f2f03c504f0 HTTP/1.1
 
 ###
 POST http://localhost:9090/update_profile_data 
 Content-Type: application/json
 
 {
-  "token": "b39aa4807323576daa3657e5979d80d5ef91882d125ca66eb056bcb967a963cc" ,
-  "bio": "Good boi",
+  "token": "325019060d98834d888db2254d814c80f826a927f12e78ae1249b3351efa3a42" ,
+  "bio": "Hi I am Jaat boi",
+  "currentPost": "CTO",
+  "pastWork": [{
+    "company": "Mircosoft",
+    "position": "CTO",
+    "years": "2+"
+  }],
+  "education": [{
+    "school": "GEU",
+    "degree": "B.Tech",
+    "fieldOfStudy": "Computer Science"
+  }],
+  "__v": 0
+}
+
+###
+POST http://localhost:9090/update_profile_data 
+Content-Type: application/json
+
+{
+  "token": "1fdf820f8a2d15b63578100dc3c2439ac8996afb55dd6f4bade5776305d8aca3" ,
+  "bio": "Hi I am Jaat boi",
   "currentPost": "CTO",
   "pastWork": [{
     "company": "Mircosoft",
