@@ -7,6 +7,8 @@ import styles from "./index.module.css";
 import {BASE_URL} from "../../config/index.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import {useRouter} from "next/router";
+import {getConnectionsRequest, sendConnectionRequest} from "../../config/redux/action/authAction/index.js";
+import {getAllPosts} from "../../config/redux/action/postAction/index.js";
 
 
 export default function ViewProfilePage({userProfile}) {
@@ -19,6 +21,7 @@ export default function ViewProfilePage({userProfile}) {
 
     const[userPosts, setUserPosts] = useState([]);
     const[isCurrentUserInConnection, setIsCurrentUserInConnection] = useState(false);
+    const[isConnectionNull, setIsConnectionNull] = useState(true);  //request accept kari ki nahi
 
     const getUsersPost = async()=> {
         await dispatch(getAllPosts());
@@ -27,7 +30,7 @@ export default function ViewProfilePage({userProfile}) {
     }
 
 
-    useEffect(()=> {
+    useEffect(()=> {  //iss babde ki query
         let post = postReducer.posts.filter((post)=> {
             return post.userId.username === router.query.username;
              
@@ -38,8 +41,11 @@ export default function ViewProfilePage({userProfile}) {
 
     useEffect(()=> {
         console.log(authState.connections, userProfile.userId._id)
-        if(authState.connections.some(user => user.connectionId === userProfile.userId._id)) {
+        if(authState.connections.some(user => user.connectionId._id === userProfile.userId._id)) { //user meri id aur profile uski
             setIsCurrentUserInConnection(true);
+            if(authState.connections.find(user => user.connectionId._id === userProfile.userId._id).status === true) {
+                setIsConnectionNull(false)
+            }
         }
     },[authState.connections])
 
@@ -47,8 +53,15 @@ export default function ViewProfilePage({userProfile}) {
     
     useEffect(()=>{
         // console.log("from view: view profile")
-        console.log(userProfile.userId.name)
-    });
+        // console.log(userProfile.userId.name)
+        getUsersPost();
+    },[]);
+
+    useEffect(()=>{
+        authState.connections;
+        
+    },[]);
+
     return (
         
         <UserLayout>
@@ -59,24 +72,28 @@ export default function ViewProfilePage({userProfile}) {
                     </div>
 
                     <div className={styles.profileContainer__details}>
+
                         <div style={{display:"flex", gap: "0.7rem"}}>
-                            
                             <div style={{flex: "0.8"}}>
                                 <div style={{display:"flex", width: "fit-content", alignItems: "center", gap: "1.2rem"}}>
                                     <h2>{userProfile.userId.name}</h2>
                                     <p style={{color:"grey"}}>@{userProfile.userId.username}</p>
                                 </div>
-                            </div>
-                            {isCurrentUserInConnection ?
-                                <button className={styles.connectedButton}>Connected</button>
-                                :
-                                <button onClick={()=> {
-                                    dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id})) 
-                                }}className={styles.connectionBtn}>Connect</button>
+
+
+                                {isCurrentUserInConnection ?
+                                    <button className={styles.connectedButton}>{isConnectionNull ? "Pending" : "Connected"}</button>
+                                    :
+                                    <button onClick={()=> {
+                                        dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id})) 
+                                    }}className={styles.connectBtn}>Connect</button>
                             
-                            }
-                            <div>
-                                <p>{userProfile.bio}</p>
+                                }
+
+
+                                <div>
+                                    <p>{userProfile.bio}</p>
+                                </div>
                             </div>
 
                             <div style={{flex: "0.2"}}>
@@ -95,21 +112,22 @@ export default function ViewProfilePage({userProfile}) {
                                         </div>
                                 )
                                 })}
-                            </div>
-
-
-                            <div style={{flex: "0.2"}}>
-
-                            </div>
+                            </div>    
                         </div>
+                    </div>
 
+                    <div className="workHistory">
+                        <h4>Work History</h4>
 
+                        <div className={styles.workHistoryContainer}>
+                                {
+                                    // userProfile.pastWork.map((work, index)=> {
+                                    //     return (
 
-
-
-
-
-
+                                    //     )
+                                    // })
+                                }
+                        </div>
                     </div>
                 </div>
             </DashboardLayout>
