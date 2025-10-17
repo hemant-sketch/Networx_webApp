@@ -188,6 +188,7 @@ export const sendConnectionRequest = async(req, res) => {
             connectionId: connectionUser._id
         })
 
+
         if(existingRequest) {
             return res.status(400).json({message: "Request already sent"})
         }
@@ -227,6 +228,7 @@ export const whatAreMyConnections = async(req,res) => {
     const {token} = req.query;
     try {
         const user = await User.findOne({token});
+            console.log(user)
 
         if(!user){
             return res.status(404).json({message: "user not found"});

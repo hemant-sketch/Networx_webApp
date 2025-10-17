@@ -85,13 +85,16 @@ const authSlice = createSlice({
             state.all_users = action.payload.profiles;
         })
         .addCase(getConnectionsRequest.fulfilled, (state, action) => {
-            state.connections = action.payload
+            
+            state.connections = action.payload.connections;
+            //console.log(state.connections);
         })
         .addCase(getConnectionsRequest.rejected, (state, action) => {
             state.message = action.payload
         })
         .addCase(getMyConnectionRequests.fulfilled, (state, action) => {
             state.connectionRequest = action.payload
+            //console.log(state.connectionRequest);
         })
         .addCase(getMyConnectionRequests.rejected, (state, action) => {
             state.message = action.payload

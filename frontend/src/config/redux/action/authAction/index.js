@@ -105,7 +105,7 @@ export const getConnectionsRequest = createAsyncThunk(  //maine kis kisoko bhejd
                     token: user.token
                 }
             })
-            return thunkAPI.fulfillWithValue(response.data.connections);
+            return thunkAPI.fulfillWithValue(response.data);
         }catch(err){
             return thunkAPI.rejectWithValue(err.response.data.message);  
         }
@@ -115,29 +115,30 @@ export const getConnectionsRequest = createAsyncThunk(  //maine kis kisoko bhejd
 export const getMyConnectionRequests = createAsyncThunk( //merko kis ksine bheja
     "user/getMyConnectionRequests",
     async (user, thunkAPI) => {
-        
         try {
             const response = await clientServer.get("/user/user_connection_request", {
                 params: {
                     token: user.token
                 }
             })
-            return thunkAPI.fulfillWithValue(response.data.connections)
+            return thunkAPI.fulfillWithValue(response.data)
         }catch(err) {
             return thunkAPI.rejectWithValue(err.response.data.message);  
         }
     }
 )
 
-export const AcceptConnections = createAsyncThunk(
+export const AcceptConnection = createAsyncThunk(
     "user/acceptConnection",
     async (user, thunkAPI) => {
         try {
             const response = await clientServer.post("/user/accept_connection_request", { 
                 token: user.token,
-                connection_id: user.connectionId,
+                requestId: user.connectionId,
                 action_type: user.action //yes or no
             })
+            thunkAPI.dispatch(getConnectionsRequest({token: user.token}))
+            thunkAPI.dispatch(getMyConnectionRequests({token: user.token}))
             return thunkAPI.fulfillWithValue(response.data)
         }catch(err) {
             return thunkAPI.rejectWithValue(err.response.data.message);  

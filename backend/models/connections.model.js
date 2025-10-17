@@ -12,7 +12,7 @@ const connectionRequest = new mongoose.Schema({
     },
     status_accepted: {
         type: Boolean,
-        deafult: null,
+        default: null,
     }
 });
 

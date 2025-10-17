@@ -35,7 +35,7 @@ POST http://localhost:9090/update_profile_data
 Content-Type: application/json
 
 {
-  "token": "325019060d98834d888db2254d814c80f826a927f12e78ae1249b3351efa3a42" ,
+  "token": "e7b75cd4ee40e2a688bf4535a4b16967768bd89c3750e73517b085be980ac38d" ,
   "bio": "Hi I am Jaat boi",
   "currentPost": "CTO",
   "pastWork": [{
@@ -56,7 +56,7 @@ POST http://localhost:9090/update_profile_data
 Content-Type: application/json
 
 {
-  "token": "1fdf820f8a2d15b63578100dc3c2439ac8996afb55dd6f4bade5776305d8aca3" ,
+  "token": "f9c63af9b93400c00c2ec1cf21b05c6cc997200faf03897bf2d26acb670ebf81" ,
   "bio": "Hi I am Jaat boi",
   "currentPost": "CTO",
   "pastWork": [{
