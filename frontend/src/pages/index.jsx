@@ -34,7 +34,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.mainContainer__right}>
-            <img className="noice" src="images/Networx.jpg" alt=""/>
+            <img className="noice" src="Images/Networx.jpg" alt=""/>
           </div>
         </div>
       </div>
