@@ -38,8 +38,22 @@
     gap: 1.4rem
 }
 
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem
+}
+
 .card__profileContainer {
     display: flex;
+}
+
+.card__profileContainer>img {
+    width: 3.4rem;
+    height: auto;
+    height: 3.4rem;
+    object-fit: cover;
+
 }
 
 /* .backDropContainer {

@@ -73,13 +73,12 @@ export default function ViewProfilePage({userProfile}) {
 
                     <div className={styles.profileContainer__details}>
 
-                        <div style={{display:"flex", gap: "0.7rem"}}>
+                        <div className={styles.profileContainer__flex}>
                             <div style={{flex: "0.8"}}>
                                 <div style={{display:"flex", width: "fit-content", alignItems: "center", gap: "1.2rem"}}>
                                     <h2>{userProfile.userId.name}</h2>
                                     <p style={{color:"grey"}}>@{userProfile.userId.username}</p>
                                 </div>
-
 
                                 <div style={{display: "flex", alignItems: "center", gap: "1.2rem"}}>
                                     {isCurrentUserInConnection ?
@@ -100,7 +99,6 @@ export default function ViewProfilePage({userProfile}) {
                                     </div>
 
                                 </div>
-
 
                                 <div>
                                     <p>{userProfile.bio}</p>

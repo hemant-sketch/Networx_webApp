@@ -88,7 +88,7 @@ export default function Dashboard() {
                       <div className={styles.singleCard__profileContainer}>
                         <img
                           className={styles.userProfile}
-                          src={`${BASE_URL}/${authState.user.userId.profilePicture}`}
+                          src={`${BASE_URL}/${post.userId.profilePicture}`}
                           alt=""
                         />
                         <div>
@@ -122,7 +122,7 @@ export default function Dashboard() {
                           <p style={{ paddingTop: "1.3rem" }}>{post.body}</p>
 
                           <div className={styles.singleCard__image}>
-                            <img src={`${BASE_URL}/${post.media}`} alt="" />
+                            {post.media !== " " ? <img src={`${BASE_URL}/${post.media}`} alt="" /> : <></>}
                           </div>
 
                           <div className={styles.optionsContainer}>
@@ -192,7 +192,7 @@ export default function Dashboard() {
                       return (
                         <div className={styles.singleComment} key={comment._id}>
                           <div className={styles.singleComment__profileContainer}>
-                            <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt=""/>
+                            {/* <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt=""/> */}
                             <div>
                               <p style={{fontWeight: "bold", fontSize:"1.2rem"}}>{comment.userId.name}</p>
                               <p>@{comment.userId.username}</p>
@@ -213,6 +213,7 @@ export default function Dashboard() {
                     // console.log(commentText);
                     await dispatch(postComment({post_id: postState.postId, commentBody: commentText}))
                     await dispatch(getAllComments({post_id: postState.postId}));
+                    setCommentText("")
                   }} className={styles.postCommentContainer__commentBtn}>
                     <p>Comment</p>
                   </div>

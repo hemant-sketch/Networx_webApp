@@ -36,11 +36,20 @@
     cursor: pointer;
 }
 
-.userProfile {
+/* .userProfile {
     border-radius: 100%;
     height: 60%;
     width: fit-content;
+} */
+
+.userProfile {
+    border-radius: 50%;       
+    height: 60%;              
+    aspect-ratio: 1 / 1;      
+    object-fit: cover;       
+    display: block;        
 }
+
 .createPostContainer > textarea{
     width: 100%;
 }
@@ -90,6 +99,8 @@
 
 .singleCard__profileContainer>img {
     width: 10%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -114,7 +125,9 @@
     height: 20%;
     width: 100%;
     justify-content: space-between;
-    padding-block: 0.6rem
+    padding-block: 0.6rem;
+        
+
 }
 
 .singleOptions__optionsContainer {
@@ -127,13 +140,13 @@
 
 .singleOptions__optionsContainer > svg {
     height: 100%;
-    width: 20%;
+    width: 8%;
     min-width: 1rem;
 }
 
-.singleOptions__optionsContainer {
-    background-color: rgba(255,0,0,0.2); /* semi-transparent red */
-}
+/* .singleOptions__optionsContainer {
+     background-color: rgba(255,0,0,0.2); semi-transparent red 
+}  */
 
 .commentsContainer {
     position: fixed;
