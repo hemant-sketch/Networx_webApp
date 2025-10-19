@@ -1,5 +1,5 @@
 import UserLayout from "../../layout/UserLayout/index.jsx";
-import DashboardLayout from "../../layout/DashBoardLayout/index.jsx";
+import DashboardLayout from "../../layout/DashboardLayout/index.jsx";
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUsers} from "../../config/redux/action/authAction/index.js";
