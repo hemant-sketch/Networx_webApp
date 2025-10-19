@@ -1,5 +1,5 @@
 import UserLayout from "../../layout/UserLayout/index.jsx";
-import DashboardLayout from "../../layout/DashBoardLayout/index.jsx";
+import DashboardLayout from "../../layout/DashboardLayout/index.jsx";
 import {useSelector, useDispatch} from "react-redux";
 import {getMyConnectionRequests, AcceptConnection} from "../../config/redux/action/authAction/index.js";
 import  {useEffect, useState} from "react";
