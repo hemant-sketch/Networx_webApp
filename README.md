@@ -40,7 +40,7 @@ A full-stack social media application built with Next.js and Node.js that enable
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/networkx.git
+git clone https://github.com/hemant-sketch/Networx_webApp
 cd networkx
 ```
 
@@ -227,5 +227,3 @@ This project is licensed under the ISC License.
 For support, email hemantschauhan042@example.com or open an issue in the repository.
 
 ---
-
-**Note:** Remember to update the MongoDB connection string and other sensitive information in production environments. Never commit `.env` files to version control.
